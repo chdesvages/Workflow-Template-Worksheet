@@ -1,0 +1,30 @@
+\documentclass[12pt,oneside]{article} 
+
+\newcommand\coursename{Demo Course}
+\newcommand\coursecode{MATXXXXXXX}
+\newcommand\courseauthor{Author}
+\newcommand\courseyear{2024--25}
+\newcommand\coursedescription{A description of the course.}
+
+\input{preamble/SoM}
+\input{preamble/custom}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\input{}
+
+
+%    Bibliography styles amsplain or harvard are also acceptable.
+\bibliographystyle{amsalpha}
+\bibliography{biblio}
+%    See note above about multiple indexes.
+%\printindex
+
+\end{document}
+
+%-----------------------------------------------------------------------
+% End of main-article.tex
+%-----------------------------------------------------------------------

@@ -1,0 +1,47 @@
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile with BookML
+        uses: vlmantova/bookml-action@v1
+        with:
+          scheme: full
+          timeout-minutes: 6
+          replace-bookml: true
+          version: latest
+
+      - name: Extract zip files
+        run: |
+          mkdir -p docs
+          for file in *.zip; do
+            if [[ "$file" != SCORM*.zip && "$file" != AUX*.zip ]]; then 
+              unzip -o "$file" -d docs
+            fi
+          done
+
+      - name: Move contents from subdirectory
+        run: |
+          for dir in docs/*/; do
+            if [ -d "$dir" ]; then
+              rsync -av --ignore-existing "$dir" docs/
+              rm -rf "$dir"
+            fi
+          done
+
+      - name: Configure git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Commit and push changes to GitHub Pages
+        run: |
+          git checkout -b gh-pages
+          git add docs/*
+          git diff-index --quiet HEAD || git commit -m "Add extracted files"
+          git push origin gh-pages --force

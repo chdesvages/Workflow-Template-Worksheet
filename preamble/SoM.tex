@@ -1,0 +1,274 @@
+%%% School of Mathematics preamble for HTML course notes with BookML.
+%%% Adapted directly from https://github.com/vlmantova/bookml/tree/main/template
+
+%%% This template imports all the most commonly requested packages which have been
+%%% tested and are compatible with BookML. You can comment out any \usepackage
+%%% commands that you are not using in your document.
+
+%%% You should import extra packages, define custom macros and environments,
+%%% etc in preamble/custom.tex.
+
+
+%% BookML and template settings
+
+%%% RECOMMENDED
+% better accented letters and ligatures in PDF
+\usepackage[T1]{fontenc}
+% set language of outputs
+\usepackage[british]{babel}
+% PDF hyperlinks and metadata
+\usepackage[pdfusetitle]{hyperref}
+% higher quality variant of Computer Modern
+%\usepackage{lmodern}
+
+%%% REQUIRED for correct formatting and tagging of BookML output: title and author
+\title{\coursename}
+\author{\courseauthor}
+\date{\courseyear}
+
+%%% OPTIONAL but highly recommended
+% additional BookML and LaTeXML functionality
+\usepackage{bookml/bookml}
+% additional versions of the document (e.g. large print) for inclusion in the HTML output
+\bmlAltFormat{\jobname.pdf}{PDF (sans serif)} % this version is always included unless it's given an empty name
+\bmlAltFormat{\jobname-serif.pdf}{PDF (serif)}
+% simple way of generating a large print PDF (~19% bigger) without changing pagination
+
+
+% short text description used for PDF and SCORM metadata
+\hypersetup{pdfsubject={\coursedescription}}
+
+% Provide \alttext (easier to remember)
+\providecommand\alttext{\bmlDescription}
+
+%%% REQUIRED for TikZ: use bmlImageEnvironment for TikZ and other images, since
+%%%                    LaTeXML is slow and often produces garbled TikZ output
+%%%                    (this requires \usepackage{bookml/bookml})
+% tell BookML to compile tikzpicture and tikzcd environments into images via LaTeX
+\bmlImageEnvironment{tikzpicture}
+
+
+\iflatexml          % are we compiling HTML through LaTeXML?
+    
+\else               % are we compiling the PDF?
+    
+\fi
+
+\usepackage{pgfplots}  % this also loads TikZ
+
+%% Packages
+
+% Font-related
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{bm}
+\usepackage{ulem}
+
+% Bibliography: note that only natbib is compatible at present
+\usepackage[square,sort,comma,numbers]{natbib} %\usepackage{natbib}
+
+% Images (note that TikZ and vector graphics/diagrams packages
+% are imported in the previous section)
+\usepackage{xcolor}
+\usepackage{graphicx}
+%\usepackage{svg}
+
+% Monospaced output (code listings, URLs...)
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{xurl}
+
+% Figures, floats, page layout
+\usepackage{subcaption} % use this rather than subfig
+\usepackage{wrapfig} % pushes entire paragraph to the side in HTML version
+\usepackage{lscape} % does nothing in the HTML version
+\usepackage{fancybox}
+\usepackage{rotating}
+\usepackage{multicol}
+
+% Tables
+\usepackage{array}
+\usepackage{tabularx}
+
+% Automation
+\usepackage{multido}
+
+% Lists
+\usepackage{enumitem}
+
+\iflatexml
+    % HTML-only packages, if any (will not be used in the PDF output)
+\else
+    % PDF-only packages (will not be used in the HTML output)
+    \usepackage[a4paper, left=25mm, right=25mm, top=30mm, bottom=30mm]{geometry}
+    \usepackage[document]{ragged2e} % Ragged right text for increased accessibility
+    \makeatletter\AddToHook{cmd/mdf@lrbox/after}{\RaggedRight}\makeatother
+    \usepackage{parskip} % Removes paragraph indenting and adds skip
+    \ifdefined \choosefonts
+    \else
+        \usepackage{cmbright,eulervm} % Some more accessibility-friendly fonts
+        \usepackage[bb=fourier]{mathalpha}
+        \renewcommand{\mathbf}{\mathbold} % Fix \mathbf font when using eulervm
+    \fi
+    \usepackage{tcolorbox}
+    \usepackage{fancyhdr}
+    \usepackage{titlesec}
+    \usepackage{etoolbox}
+\fi
+
+
+
+
+
+%% Style and settings
+\iflatexml
+
+
+%\theoremstyle{remark}
+%\newtheorem*{solution}{Solution}
+
+\pgfplotsset{compat=1.16}
+\else
+% Theorem styles (sequential numbering, indexed on chapter (if it exists) or section)
+% PDF-only settings
+% Official UoE brand colours
+\definecolor{UoESoMGrey}{HTML}{c6d1d6}
+\definecolor{UoESoMLightBlue}{HTML}{009baa}
+\definecolor{UoESoMDarkOrange}{HTML}{c66005}
+\definecolor{UoESoMDarkBlue}{HTML}{002654}
+
+\usepackage{mdframed}
+
+% Define styles for mdframed
+% Define styles for mdframed
+\mdfdefinestyle{UoESomStatement}{
+    linecolor=UoESoMDarkOrange,
+    backgroundcolor=UoESoMDarkOrange!3!white,
+    leftline=true,
+    rightline=true,
+    topline=false,
+    bottomline=false,
+    linewidth=0.6ex,
+    innertopmargin=2.5ex,
+    innerbottommargin=1.5ex,
+    innerrightmargin=1.5ex,
+    innerleftmargin=1.5ex,
+    skipabove=\baselineskip,
+    skipbelow=\baselineskip,
+    leftmargin=-2.1ex,
+    rightmargin=-2.1ex,
+}
+
+\mdfdefinestyle{UoESomProof}{
+    linecolor=UoESoMGrey,
+    backgroundcolor=UoESoMGrey!5!white,
+    leftline=true,
+    rightline=true,
+    topline=false,
+    bottomline=false,
+    linewidth=0.6ex,
+    innertopmargin=1.5ex,
+    innerbottommargin=1.5ex,
+    innerrightmargin=1.5ex,
+    innerleftmargin=1.5ex,
+    skipabove=\baselineskip,
+    skipbelow=\baselineskip,
+    leftmargin=-2.1ex,
+    rightmargin=-2.1ex,
+}
+
+\mdfdefinestyle{UoESomDefinition}{
+    linecolor=UoESoMLightBlue,
+    backgroundcolor=UoESoMLightBlue!3!white,
+    leftline=true,
+    rightline=true,
+    topline=false,
+    bottomline=false,
+    linewidth=0.6ex,
+    innertopmargin=2.5ex,
+    innerbottommargin=1.5ex,
+    innerrightmargin=1.5ex,
+    innerleftmargin=1.5ex,
+    skipabove=\baselineskip,
+    skipbelow=\baselineskip,
+    leftmargin=-2.1ex,
+    rightmargin=-2.1ex,
+}
+
+\mdfdefinestyle{UoESomExample}{
+    linecolor=UoESoMDarkBlue,
+    backgroundcolor=UoESoMDarkBlue!3!white,
+    leftline=true,
+    rightline=true,
+    topline=false,
+    bottomline=false,
+    linewidth=0.6ex,
+    innertopmargin=2.5ex,
+    innerbottommargin=1.5ex,
+    innerrightmargin=1.5ex,
+    innerleftmargin=1.5ex,
+    skipabove=\baselineskip,
+    leftmargin=-2.1ex,
+    rightmargin=-2.1ex,
+    %skipbelow=\baselineskip
+}
+
+
+\surroundwithmdframed[style=UoESomDefinition]{definition}
+\surroundwithmdframed[style=UoESomStatement]{proposition}
+\surroundwithmdframed[style=UoESomStatement]{lemma}
+\surroundwithmdframed[style=UoESomStatement]{theorem}
+\surroundwithmdframed[style=UoESomStatement]{corollary}
+\surroundwithmdframed[style=UoESomProof]{proof}
+\surroundwithmdframed[style=UoESomExample]{example}
+
+    % General style
+    \titleformat{\chapter}{\raggedright\huge\sffamily\bf}{\thechapter}{1em}{}
+
+    % PDF headers/footers
+    \pagestyle{fancy}
+    \fancyhf{}
+    \lhead{\coursename}
+    \rhead{\coursecode}
+    \cfoot{\thepage}
+    \setlength{\headheight}{20pt}
+
+
+\fi
+
+\theoremstyle{definition}
+\ifcsname chapter\endcsname%
+\newtheorem{definition}{Definition}[chapter]%
+\else%
+\newtheorem{definition}{Definition}[section]%
+\fi
+\newtheorem{assumption}[definition]{Assumption}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{example}[definition]{Example} % Change to \newtheorem*{example}{Example} for unnumbered
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{exercise}[definition]{Exercise}
+
+% Make a copy of proof for solution
+\makeatletter
+\newcommand\solutionname{Solution}
+\newcommand\solutionend{}
+\newenvironment{solution}[1][\solutionname]{\par
+\pushQED{\solutionend}%
+\normalfont \topsep6\p@\@plus6\p@\relax
+\trivlist
+\item\relax
+{\itshape
+#1\@addpunct{.}}\hspace\labelsep\ignorespaces
+}{%
+\popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+
+%\usepackage[inkscapelatex=false]{svg}
+%% Macros and environments
+
+% Set the name of the image/graphics folder(s)
+\newcommand{\img}{img}
