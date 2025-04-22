@@ -111,12 +111,8 @@
     \fi
     \usepackage{tcolorbox}
     \usepackage{fancyhdr}
-    \usepackage{titlesec}
     \usepackage{etoolbox}
 \fi
-
-
-
 
 
 %% Style and settings
@@ -222,7 +218,7 @@
 \surroundwithmdframed[style=UoESomExample]{example}
 
     % General style
-    \titleformat{\chapter}{\raggedright\huge\sffamily\bf}{\thechapter}{1em}{}
+    
 
     % PDF headers/footers
     \pagestyle{fancy}
@@ -236,7 +232,9 @@
 \fi
 
 \theoremstyle{definition}
-\ifcsname chapter\endcsname%
+\ifcsname chapter\endcsname
+\usepackage{titlesec}
+\titleformat{\chapter}{\raggedright\huge\sffamily\bf}{\thechapter}{1em}{}
 \newtheorem{definition}{Definition}[chapter]%
 \else%
 \newtheorem{definition}{Definition}[section]%
