@@ -1,0 +1,417 @@
+\chapter{Template document: usage and examples}
+\label{demo}
+
+The School of Mathematics provides a default template, which is designed for writing new course materials -- it aims to improve accessibility and convert nicely to HTML. It should also be relatively easy to convert existing materials to this template. The template provides a preamble in \verb|preamble/SoM.tex|. You can add your own preamble in \verb|preamble/custom.tex|.
+
+The examples shown in this section are intended to demonstrate the use of the packages and environments included by default in the template, and to give an overview of how different elements are rendered in both the PDF and the HTML versions of a document. Workarounds and \LaTeX\ snippets are also given for certain packages or commands which are not compatible with BookML; these may also be useful to those not using the template.
+
+For more information, see the \href{https://vlmantova.github.io/bookml/#S3.SS1}{BooML Documentation}. This also includes interesting ways of using the HTML functionality.
+
+\section{File structure}
+\label{demo:struct}
+
+
+All content should go either in \verb|main.tex| (single file), or in separate \verb|.tex| files located in the same folder as \verb|main.tex|. If using separate sub-files, they should be included into \verb|main.tex| using \verb|\input{}|, as is done in this document. Sub-files should not have \verb|\begin{document}| or \verb|\end{document}| commands.
+
+The \verb|main.tex| template uses the \verb|book| document class; therefore, the levels of sectioning available are \verb|\part|, \verb|\chapter|, \verb|\section|, \ldots. If you prefer to use \verb|article| as the document class, then you should use the code in \verb|main-article.tex~|.
+
+You can use \verb|preamble/custom.tex| to complement the template preamble with any additional packages, macros, environments, and so on.
+
+
+\section{Including or excluding content from either version}
+\label{demo:ifpdf}
+
+The \verb|bookml| \LaTeX{} package includes the command \verb|\iflatexml|  to include or exclude particular code from either the PDF or the HTML version of your notes.
+
+\begin{itemize}
+    \item Use \verb|\iflatexml| to delimit anything (content, packages, macros, \ldots) that should only be used in the HTML version.
+    \item Use \verb|\iflatexml\else| to delimit anything (content, packages, macros, \ldots) that should only be used in the PDF notes.
+\end{itemize}
+
+You can check the following example in the source file for this document:
+
+\iflatexml
+  \textbf{This will only show up in the HTML version.}
+\fi
+
+\iflatexml
+\else
+  \textbf{This will only show up in the PDF version.}
+\fi
+
+
+
+\section{Theorem styles}
+\label{demo:thm}
+
+\verb|preamble/SoM.tex| defines a range of theorem-like styles, and sets up sequential numbering indexed on \verb|chapter|. Here is an example of a \verb|theorem| and a \verb|proof| environment.
+Theorem~\ref{th:iterError} and its proof will be in the exam:
+
+\begin{theorem}
+  \label{th:iterError}
+  Let $\vect{e}_k = \mat{R}^k \vect{e}_0$, for $k\in \mathbb{N}$ and some $\mat{R}\in \R^{n\times n}$. If $\norm{\mat{R}}_p < 1$, then \mbox{$\norm{\vect{e}_k}_p \to 0$} as $k \to \infty$.
+\end{theorem}
+
+\begin{proof}
+  We have
+  \begin{align*}
+    \norm{\vect{e}_k}_p &= \norm{\mat{R}^k \vect{e}_0}_p \\
+    &\leqslant \norm{\mat{R}^k}_p \norm{\vect{e}_0}_p \\
+    &\leqslant \norm{\mat{R}}_p^k \norm{\vect{e}_0}_p 
+  \end{align*}
+  \bmlPlusClass{nolines}
+  and so $\norm{\vect{e}_k}_p \to 0$ as $k \to \infty$ if $\norm{\mat{R}}_p < 1$. \qedhere
+\end{proof}
+
+Note that the \verb|align| environment is used in the proof, and also works as expected in the HTML version.
+
+There is also a numbered ``Example'' environment, which has a left-side bar to differentiate it from the rest of the notes. To remove the numbering, see \verb|SoM.tex|.
+
+\begin{example}
+
+Morbi nisi dolor, tincidunt eget ultrices sit amet, facilisis et urna. Praesent quis porttitor tortor. Sed fringilla sollicitudin imperdiet. In tristique ut tortor id pellentesque. Aenean tincidunt nisi ut ante imperdiet finibus. Vivamus vel nunc sed est maximus venenatis quis fermentum ipsum. Morbi dictum cursus tellus rutrum tristique. Curabitur ligula nunc, venenatis ac pharetra nec, lacinia sit amet urna. Suspendisse maximus vulputate nisi et sodales. Nulla suscipit vel nisl faucibus fermentum. Integer porttitor dui mauris, luctus dignissim ipsum sodales et. Donec facilisis odio ac egestas tempus. Etiam porta sollicitudin massa eu pellentesque. Donec lacinia nec neque et imperdiet.
+
+    Let
+    \[
+        \mat{A} =
+        \begin{bmatrix}
+            2	&	1	&	1	\\
+            4	&	3	&	3	\\
+            8	&	7	&	9	\\
+        \end{bmatrix}.
+    \]
+    We want to put $\mat{A}$ into row echelon form. 
+    We create zeros below the diagonal in the first column by subtracting multiples of the first row from the other rows:
+    \[
+        \mat{L}_1 \mat{A} =
+        \begin{bmatrix}
+            1		&	0	&	0	\\
+            -2	&	1	&	0	\\
+            -4	&	0	&	1	\\
+        \end{bmatrix}
+        \cdot
+        \begin{bmatrix}
+            2	&	1	&	1	\\
+            4	&	3	&	3	\\
+            8	&	7	&	9	\\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            2	&	1	&	1	\\
+            0	&	1	&	1	\\
+            0	&	3	&	5	\\
+        \end{bmatrix}.
+    \]
+    Repeating this for the second column
+    \[
+        \mat{L}_2\left(\mat{L}_1 \mat{A}\right) =
+        \begin{bmatrix}
+            1	&	0		&	0	\\
+            0	&	1		&	0	\\
+            0	&	-3	&	1	\\
+        \end{bmatrix}
+        \cdot
+        \begin{bmatrix}
+            2	&	1	&	1	\\
+            0	&	1	&	1	\\
+            0	&	3	&	5	\\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            2	&	1	&	1	\\
+            0	&	1	&	1	\\
+            0	&	0	&	2	\\
+        \end{bmatrix}
+        = \mat{U}.
+    \]
+    The above procedure factorises $\mat{A}$ as $\mat{A} = \left( \mat{L}_2\mat{L}_1 \right)^{-1}\mat{U}$.
+\end{example}
+
+And some extra text after the example to show the return to the regular layout.
+
+If you wish to use a different theorem style, you can do so by editing \verb|preamble/SoM.tex|. To reflect these changes in the HTML, you can edit the CSS in \verb|bmluser/SoM.css|. \verb|.ltx_theorem_theorem | is the class for theorems, and \verb|.ltx_theorem_proof| and similar. to edit specifically wish to edit the way it looks in sepia mode or night mode. Add css to \verb|.color-theme-1 .ltx_theorem_theorem| and \verb|.color-theme-1 .ltx_theorem_theorem| respectively.
+
+\subsection{Solutions}
+
+If you wish to hide create a version of the documents with and without solutions, this is generally done using the \verb|version| package. This is not compatible with BookML. However, we can navigate this with a few options. 
+
+The first choice is to replicate the package using the \verb|comment| package. Add this code to your preamble. 
+
+\begin{lstlisting}
+\iflatexml 
+      \usepackage{comment} 
+     % \excludecomment{sol} 
+      \includecomment{sol} 
+\else 
+      \usepackage{version} 
+      % \excludeversion{sol} 
+      \includeversion{sol} 
+\fi 
+\end{lstlisting}
+
+Alternatively, if you wish to allow students to view solutions but have them hidden, you can use HTML to create a dropdown that students can access with the solution under. Uncomment the following code in \verb|custom.tex|.
+
+\begin{lstlisting}
+\iflatexml  
+    \renewenvironment{solution} 
+    {\<details style="text-align: left; width: 100\%" open="">  
+    \<summary>  \textbf{Solution}  \</summary>  \\} 
+    {\</details> } 
+\else 
+    \usepackage{version}  
+    % \excludeversion{solution}  
+    \includeversion{solution}  
+\fi 
+\end{lstlisting}
+
+This would look like:
+
+\iflatexml  
+\<details style="text-align: left; width: 100\%" open="">  \<summary>  \textbf{Solution}  \</summary>  This is how we solve a quadratic.  
+    \</details> 
+\else 
+    \begin{solution}
+        This is how we solve a quadratic. 
+    \end{solution} 
+\fi 
+
+
+
+
+\section{Figures}
+\label{demo:fig}
+
+\subsection{Raster images}
+\label{demo:fig:raster}
+
+Figure~\ref{fig:coins} is a PNG image included with \verb|\includegraphics|. The \verb|\img| macro is set in \verb|preamble/SoM.tex|, which you can change there if your graphics folder has a different name.
+
+Use the \verb|\includegraphics[alt={alternative text}]{\img/image.png}| to provide \textbf{informative alternative text} for all your images --- this is an \textbf{important accessibility feature}. \href{https://accessibility.huit.harvard.edu/describe-content-images}{Here is useful advice on writing good alternative text}.
+
+To avoid images being inverted in night mode in HTML, add \verb|\bmlPlusClass{bml_no_invert}| after the \verb|\includegraphics| command. There should be no linebreaks or spaces between. This can also be used for tikz images.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[alt={A greyscale photo of 10 silver coins scattered on a dark grey background.}]{\img/coins.png}\bmlPlusClass{bml_no_invert}
+    \caption{A PNG image included with \texttt{\textbackslash includegraphics}.}
+    \label{fig:coins}
+\end{figure}
+
+
+\subsection{Vector images}
+\subsubsection{\texttt{tikz} images}
+\label{demo:fig:tikz}
+
+Figure~\ref{fig:string} is a \verb|tikz| diagram included with \verb|\input|.
+Use the \verb|\bmlDescription{alternative text}| to provide \textbf{informative alternative text} for all your images.
+
+\begin{figure}[H]
+    \centering
+    \input{\img/stringelement.tex}\bmlDescription{Diagram of a section of flexible string of length $dx$. Tension is symbolised with a vector T pointing outwards from each end of the string section, at angles theta(x) and theta(x + dx) respectively from the horizontal axis.}
+    \caption{Small string element under tension.}
+    \label{fig:string}
+\end{figure}
+
+% The \verb|tikz-cd| package can also be used to draw commutative diagrams, as an alternative to \verb|xy|. A \href{https://tikzcd.yichuanshen.de/}{graphical editor is available online}, which generates code. Figure~\ref{fig:cd} shows an example, reproduced from the \href{https://ctan.math.washington.edu/tex-archive/graphics/pgf/contrib/tikz-cd/tikz-cd-doc.pdf}{documentation}.
+
+% \begin{figure}[h]
+    % \centering
+    % % \begin{tikzcd}
+    % % A \arrow{d} \arrow{r}[near start]{\phi}[near end]{\psi}
+    % % & B \arrow[red]{d}{\xi} \\
+    % % C \arrow[red]{r}[blue]{\eta}
+    % % & D
+    % % \end{tikzcd}
+    % \begin{tikzcd}
+    % T
+    % \arrow[drr, bend left, "x"]
+    % \arrow[ddr, bend right, "y"]
+    % \arrow[dr, dotted, "{(x,y)}" description] & & \\
+    % & X \times_Z Y \arrow[r, "p"] \arrow[d, "q"]
+    % & X \arrow[d, "f"] \\
+    % & Y \arrow[r, "g"]
+    % & Z
+    % \end{tikzcd}
+    % \caption{Example of a commutative diagram created with \texttt{tikz-cd}.}
+    % \label{fig:cd}
+% \end{figure}
+
+
+\subsubsection{\texttt{pgfplots}}
+\label{demo:fig:pgf}
+
+PGF plots are also supported, as shown in Figure~\ref{fig:sqrt}.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}
+            \addplot[domain=-3:3, color=blue]{sqrt(x+3)};
+        \end{axis}
+    \end{tikzpicture}
+    \bmlDescription{A plot of sqrt(x+3) between -3 and 3.}
+    \caption{Plot created using the \texttt{pgfplots} package.}
+    \label{fig:sqrt}
+\end{figure}
+
+\subsubsection{SVG}
+
+Unlike \LaTeX\, HTML can render SVG images directly. This will produce a clearer image in the HTML version - TikZ images are loaded as SGV. This can be done by using \verb|\iflatexml| to include the SVG image in the HTML version, the PDF version in the PDF version. This is done below. More information on how this works can be seen in Section~\ref{demo:ifpdf}.
+
+
+\iflatexml
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth, alt={Generic bar graphic chart with an arrow to indicate downward trend}]{img/graph.svg}
+    \label{fig:graph}
+\end{figure}
+\else
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.25\linewidth, alt={Generic bar chart with an arrow to indicate downward trend}]{img/graph.pdf}
+    \label{fig:graph}
+\end{figure}
+\fi
+
+\section{Layout}
+
+\subsection{Subfigures}
+\label{demo:fig:subfig}
+
+The \verb|subfigure| environment from the \verb|subcaption| package can be used for both the PDF and HTML versions, as seen in Figure~\ref{fig:subs}. Alternatively, the \verb|minipage| package can be used, as shown in Figure~\ref{fig:minpage}. Unlike subcaption, \verb|minipage| forces the figures to be side by side, even if they are too wide to fit on the page. This may be useful if you want to force the figures side by side, but you may wish to swap to subcaption for best flow. 
+
+\begin{figure}[H]
+    \centering
+
+    \begin{subfigure}{0.35\textwidth}
+        \includegraphics[width=\textwidth,alt={The main entrance of JCMB.}]{\img/jcmb.jpg}\bmlPlusClass{bml_no_invert}
+        \caption{A JPEG image as a subfigure.}
+        \label{fig:jcmb}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.6\textwidth}
+        \includegraphics[width=\textwidth,alt={Log-log plot showing sigma versus frequency. Three curves overlap almost perfectly: root of polynomial, first approximation, and second approximation.}]{\img/sigapprox.eps}\bmlPlusClass{bml_no_invert}
+        \caption{An EPS file as a subfigure.}
+        \label{fig:sig}
+    \end{subfigure}
+    \caption{Two subfigures,using the \texttt{subcaption} package.}
+    \label{fig:subs}
+\end{figure}
+
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.35\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,alt={The main entrance of JCMB.}]{\img/jcmb.jpg}\bmlPlusClass{bml_no_invert}
+        \caption{A JPEG image as a subfigure.}
+        \label{fig:mp-jcmb}
+    \end{minipage}%
+    \begin{minipage}{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,alt={Log-log plot showing sigma versus frequency. Three curves overlap almost perfectly: root of polynomial, first approximation, and second approximation.}]{\img/sigapprox.eps}\bmlPlusClass{bml_no_invert}
+        \caption{An EPS file as a subfigure.}
+        \label{fig:mp-sig}
+    \end{minipage}
+    \caption{Two subfigures,using the \texttt{minipage} environment.}
+    \label{fig:minpage}
+\end{figure}
+
+
+\subsubsection{Wrapping text around figures}
+\label{float:wrap}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \includegraphics[width=0.35\textwidth,alt={Photo of 10 silver coins on a dark grey background.}]{\img/coins.png}\bmlPlusClass{bml_no_invert}
+    \caption{Text wrapped around an image using \texttt{wrapfigure}.}
+    \label{fig:wrap}
+\end{wrapfigure}
+
+\lipsum[1-2]
+
+
+\subsection{Tables}
+\label{float:tab}
+
+Tables can be typeset using the \verb|tabular| environment (see Table~\ref{tab:tabular}). Note that the \verb|tabularx| package is also compatible.
+
+\begin{table}
+    \centering
+    \begin{tabular}{| l | l | r |} 
+      \hline
+      cell1 dummy text dummy text dummy text & cell2 & cell3 \\ 
+      \hline
+      cell1 dummy text dummy text dummy text & cell5 & cell6 \\ 
+      \hline
+      cell7 & cell8 & cell9 \\ 
+      \hline
+    \end{tabular}
+
+    \caption{Example table produced with the \texttt{tabular} environment.}
+    \label{tab:tabular}
+\end{table}
+
+
+\subsection{Custom floats}
+\label{float:custom}
+
+New float types can be created with the \verb|float| package. For example, Program~\ref{float:prog} is a custom \verb|program| float (adapted example from the \href{https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions}{LaTeX Wikibooks}). The code is displayed differently but the conversion works.
+
+\begin{program}
+  \begin{verbatim}
+class HelloWorldApp {
+  public static void main(String[] args) {
+    //Display the string
+    System.out.println("Hello World!");
+  }
+}
+\end{verbatim}
+  \caption{The Hello World! program in Java.}
+  \label{float:prog}
+\end{program}
+
+
+The package \verb|multicol| is compatible with BookML, but the in the HTML version, there will not be multiple columns. See bellow, in the PDF version, there are three columns, but in the HTML version, it will be a single column.
+\begin{multicols}{3}
+     \lipsum[1-2]
+\end{multicols}
+
+\section{Other}
+\subsection{Multido}
+\label{demo:multido}
+The \verb|multido| package is compatible with BookML. It can be used to create loops in your code. For example, the following code will produce a sequence of 8 numbers from 2.00, with a step size of -3.05:
+
+$$
+\multido{\n=2.00+-3.05}{8}{\n, }
+$$
+
+\subsection{Monospaced output}
+\label{demo:code}
+The \verb|listings| package is compatible with BookML. It can be used to create code listings in your document. For example, the following code will produce a listing of a simple Java program:
+
+
+\begin{lstlisting}[language=Java]
+class HelloWorldApp {
+  public static void main(String[] args) {
+    //Display the string
+    System.out.println("Hello World!");
+  }
+}
+\end{lstlisting}
+The \verb|verbatim| environment is also compatible with BookML. It can be used to create verbatim text in your document. For example, the following code will produce a verbatim block of text:
+\begin{verbatim}
+This is a verbatim block of text.
+It will be displayed exactly as it is 
+written, with no formatting or special characters such as \LaTeX
+\end{verbatim}
+
+\subsection{Referencing from a bibliography}
+\label{bib}
+
+The package \verb|natbib| is compatible with BookML. Note that \verb|biblatex| is not yet compatible.
+
+This is an example reference~\cite{strikwerda2004}, and another~\citep{parret2016time}. It should not be complex to switch from biblatex to natbib. 
+
+
