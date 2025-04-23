@@ -1,8 +1,8 @@
 \documentclass[12pt,oneside]{book}
 
-\newcommand\coursename{Demo Course}
+\newcommand\coursename{BookML in University of Edinburgh}
 \newcommand\coursecode{MATXXXXXXX}
-\newcommand\courseauthor{Author}
+\newcommand\courseauthor{Steven O'Hagan, Hayden Maudsley-Barton, and Charlotte Desvages}
 \newcommand\courseyear{2024--25}
 \newcommand\coursedescription{A description of the course.}
 
@@ -15,6 +15,12 @@
 %\thanks{}
 
 \maketitle
+
+This is an instruction and demonstration of University of Edinburgh the School of Mathematics template for HTML notes converted by BookML. The HTML version of this document can be found as \href{https://uoe-school-of-mathematics.github.io/BookML-Workflow-Documentation/index.html}{a GitHub pages site}. The source code is available in \href{https://github.com/UoE-School-of-Mathematics/BookML-Workflow-Documentation}{a GitHub repository}.
+
+BookML is a small wrapper around LaTeXML and is created by Vincenzo Mantova at the University of Leeds, source code and local instalation instructions are available at \url{github.com/vlmantova/bookml} and documentation at \url{vlmantova.github.io/bookml/}.
+
+
 \tableofcontents
 
 %    Dedication.  If the dedication is longer than a line or two,
@@ -37,6 +43,15 @@
 
 \mainmatter
 % Include main chapters here.
+
+\input{instructions}
+\input{demo}
+
+\chapter{Appendicies}
+\input{context}
+\input{zip}
+
+
 
 %\part{Second part}
 
