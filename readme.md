@@ -1,0 +1,3 @@
+This is an instruction and demonstration of University of Edinburgh the School of Mathematics template for HTML notes converted by BookML. The HTML version of this document can be found as [a GitHub pages site](https://uoe-school-of-mathematics.github.io/BookML-Workflow-Documentation/index.html). The source code is available in [a GitHub repository](https://github.com/UoE-School-of-Mathematics/BookML-Workflow-Documentation).
+
+BookML is a small wrapper around LaTeXML and is created by Vincenzo Mantova at the University of Leeds, source code and local instalation instructions are available at [github.com/vlmantova/bookml](github.com/vlmantova/bookml) and documentation at [vlmantova.github.io/bookml/](vlmantova.github.io/bookml/).
