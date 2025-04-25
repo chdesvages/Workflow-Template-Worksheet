@@ -1,4 +1,4 @@
-\chapter{Template document: usage and examples}
+\chapter{Usage and examples for the template}
 \label{demo}
 
 The School of Mathematics provides a default template, which is designed for writing new course materials -- it aims to improve accessibility and convert nicely to HTML. It should also be relatively easy to convert existing materials to this template. The template provides a preamble in \verb|preamble/SoM.tex|. You can add your own preamble in \verb|preamble/custom.tex|.
@@ -11,11 +11,11 @@ For more information, see the \href{https://vlmantova.github.io/bookml/#S3.SS1}{
 \label{demo:struct}
 
 
-All content should go either in \verb|main.tex| (single file), or in separate \verb|.tex| files located in the same folder as \verb|main.tex|. If using separate sub-files, they should be included into \verb|main.tex| using \verb|\input{}|, as is done in this document. Sub-files should not have \verb|\begin{document}| or \verb|\end{document}| commands.
+All content should go either in \verb|main.tex| (single file), or in separate \verb|.tex| files located in the same folder as \verb|main.tex|. If using separate sub-files, they should be included into \verb|main.tex| using \verb|\input{}|, as is done in this document. Sub-files should \textbf{not} have \verb|\begin{document}| or \verb|\end{document}| commands.
 
-The \verb|main.tex| template uses the \verb|book| document class; therefore, the levels of sectioning available are \verb|\part|, \verb|\chapter|, \verb|\section|, \ldots. If you prefer to use \verb|article| as the document class, then you should use the code in \verb|main-article.tex~|.
+The \verb|main.tex| template uses the \verb|book| document class; therefore, the levels of sectioning available are \verb|\part|, \verb|\chapter|, \verb|\section|, \ldots. If you prefer to use \verb|article| as the document class, then you should use the code in \verb|main-article.tex~| instead.
 
-You can use \verb|preamble/custom.tex| to complement the template preamble with any additional packages, macros, environments, and so on.
+You can use \verb|preamble/custom.tex| to complement the template preamble with any additional packages, macros, custom environments, and so on.
 
 
 \section{Including or excluding content from either version}
@@ -29,6 +29,17 @@ The \verb|bookml| \LaTeX{} package includes the command \verb|\iflatexml|  to in
 \end{itemize}
 
 You can check the following example in the source file for this document:
+
+\begin{snippet}{Show \LaTeX{} snippet}
+\iflatexml
+  \textbf{This will only show up in the HTML version.}
+\fi
+
+\iflatexml
+\else
+  \textbf{This will only show up in the PDF version.}
+\fi
+\end{snippet}
 
 \iflatexml
   \textbf{This will only show up in the HTML version.}
