@@ -29,8 +29,11 @@
 % Collapsible code snippet
 \iflatexml
     \newenvironment{snippet}[1][Code snippet]
-        {\<details style="text-align: left; width: 100\%" open="">\<summary>\textbf{#1}\</summary>\begin{lstlisting}}
-        {\end{lstlisting}\</details>}
+        {\<details style="text-align: left; width: 100\%" closed="">
+        \<summary> \textbf{#1} \</summary>
+        \begin{lstlisting}}
+        {\end{lstlisting}
+        \</details>}
 \else
     \newenvironment{snippet}[1][Code snippet]
         {\begin{lstlisting}[caption=#1]}
