@@ -16,7 +16,7 @@
   texcsstyle=*{\color{blue}\bfseries},%
   moretexcs={ifcsname,excludecomment},%
   stringstyle={\color{red}},%
-  frame=none,%
+  frame=single,%
   xleftmargin=1em,xrightmargin=1em}
 
 
@@ -28,16 +28,11 @@
 
 % Collapsible code snippet
 \iflatexml
-    \newenvironment{snippet}[1][Code snippet]
-        {\<details style="text-align: left; width: 100\%" closed="">
-        \<summary> \textbf{#1} \</summary>
-        \begin{lstlisting}}
-        {\end{lstlisting}
-        \</details>}
+    \lstnewenvironment{snippet}
+        {\<details style="text-align: left; width: 100\%" closed=""> \<summary> \textbf{Code snippet} \</summary>}
+        {\</details>}
 \else
-    \newenvironment{snippet}[1][Code snippet]
-        {\begin{lstlisting}[caption=#1]}
-        {\end{lstlisting}}
+    \lstnewenvironment{snippet}{}{}
 \fi
 
 % collapsible solution
@@ -53,6 +48,8 @@
     \includeversion{solution}  
 \fi 
 \end{comment}
+
+
 
 %% Macros
 
