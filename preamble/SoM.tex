@@ -120,6 +120,19 @@
 \iflatexml
 
 
+% === Hack to fix incorrect spacing before mdframed theorem in TeXLive 2024
+% === only works for pdflatex
+\usepackage{ifpdf}
+\newlength\thmboxoffset
+\ifpdftex
+    \def\gettexliveversion#1(#2 #3 #4#5#6#7#8)#9\relax{#4#5#6#7}
+    \edef\texliveversion{\expandafter\gettexliveversion\pdftexbanner\relax}
+    \ifnum\texliveversion=2024
+      \setlength{\thmboxoffset}{\parskip}
+    \fi
+\fi
+% ===
+
 %\theoremstyle{remark}
 %\newtheorem*{solution}{Solution}
 
