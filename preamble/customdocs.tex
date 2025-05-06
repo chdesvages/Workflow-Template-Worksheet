@@ -1,0 +1,82 @@
+% Include any further packages/commands/macros/etc in this file.
+% Below are some examples, which are used in the demo document.
+
+
+% for filler text
+\usepackage{lipsum}
+
+
+% tikz (all tikz-related commands should be excluded from the HTML version)
+\iflatexml\else
+\usetikzlibrary{arrows}
+\fi
+
+% Code listings settings
+\lstset{basicstyle={\small\ttfamily},language=[LaTeX]TeX,%
+  texcsstyle=*{\color{blue}\bfseries},%
+  moretexcs={ifcsname,excludecomment},%
+  stringstyle={\color{red}},%
+  frame=single,%
+  xleftmargin=1em,xrightmargin=1em}
+
+
+%% Custom environments
+
+% FAQ answers
+\newenvironment{ans}
+{\begin{itemize}\item[]\textbf{A:}}{\end{itemize}}
+
+% Collapsible code snippet
+\iflatexml
+    \lstnewenvironment{snippet}
+        {\<details style="text-align: left; width: 100\%" closed=""> \<summary> \textbf{Code snippet} \</summary>}
+        {\</details>}
+\else
+    \lstnewenvironment{snippet}{}{}
+\fi
+
+% collapsible solution
+\begin{comment}
+\iflatexml  
+    \renewenvironment{solution} 
+    {\<details style="text-align: left; width: 100\%" closed="">  
+    \<summary>  \textbf{Solution}  \</summary>  \\} 
+    {\</details> } 
+\else 
+    \usepackage{version}  
+    % \excludeversion{solution}  
+    \includeversion{solution}  
+\fi 
+\end{comment}
+
+
+
+%% Macros
+
+% arg min and arg max
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% sign
+\DeclareMathOperator{\sign}{sign}
+
+% real and complex numbers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+% norm
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+
+% bold for vectors and matrices
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+
+% \dd for straight differential (use as \dd x or \dd{x})
+\newcommand{\dd}[1]{\mathop{\mathrm{d}#1}}
+
+
+\usepackage{float}
+
+\floatstyle{ruled}
+\newfloat{program}{thp}{lop}
+\floatname{program}{Program}

@@ -1,13 +1,13 @@
 \documentclass[12pt,oneside]{book}
 
-\newcommand\coursename{Demo Course}
+\newcommand\coursename{BookML at the University of Edinburgh}
 \newcommand\coursecode{MATXXXXXXX}
-\newcommand\courseauthor{Author}
-\newcommand\courseyear{2024--25}
+\newcommand\courseauthor{Steven O'Hagan, Hayden Maudsley-Barton, and Charlotte Desvages}
+\newcommand\courseyear{2025--26}
 \newcommand\coursedescription{A description of the course.}
 
 \input{preamble/SoM}
-\input{preamble/custom}
+\input{preamble/customdocs}
 
 \begin{document}
 % \frontmatter
@@ -15,6 +15,14 @@
 %\thanks{}
 
 \maketitle
+
+This is a guidance document and demonstration of the template for HTML notes converted by BookML used by the School of Mathematics at the University of Edinburgh. The HTML version of this document can be found as \href{https://uoe-school-of-mathematics.github.io/Workflow-Documentation/index.html}{a GitHub pages site}. \href{https://github.com/UoE-School-of-Mathematics/Workflow-Documentation}{This GitHub repository} contains the source LaTeX markup for the HTML site.
+
+There is a \href{https://github.com/UoE-School-of-Mathematics/Workflow-Template-Blank}{blank template repository} which should be used for your own course materials; see the documentation for more details on usage.
+
+BookML is a small wrapper around LaTeXML, created and maintained by Vincenzo Mantova at the University of Leeds. The source code and local installation instructions are available on the \href{https://github.com/vlmantova/bookml}{BookML repository}, and documentation is published at \url{https://vlmantova.github.io/bookml/}.
+
+
 \tableofcontents
 
 %    Dedication.  If the dedication is longer than a line or two,
@@ -31,7 +39,6 @@
 % \setcounter{page}{4}
 
 
-
 % Copyright information (for published pages)
 \iflatexml
     \copyright The University of Edinburgh, 2025. Generated with \href{https://vlmantova.github.io/bookml/}{BookML}.
@@ -43,6 +50,15 @@
 
 \mainmatter
 % Include main chapters here.
+
+\input{instructions}
+\input{demo}
+
+\chapter{Appendices}
+\input{context}
+\input{zip}
+
+
 
 %\part{Second part}
 

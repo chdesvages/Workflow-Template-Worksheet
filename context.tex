@@ -1,0 +1,77 @@
+\section{Context: why are we doing this?}\label{sec:context}
+
+The University is legally required to provide learning materials in accessible formats\footnote{\href{https://institute-academic-development.ed.ac.uk/learning-teaching/staff/accessible}{Accessible and Inclusive Learning - University of Edinburgh}}. Although guidance is provided through Information Services\footnote{\href{https://www.ed.ac.uk/information-services/help-consultancy/accessibility/creating-materials}{Creating accessible materials - University of Edinburgh}} for some document formats (e.g., MS Office), workflows deviating from these are not currently supported.
+
+Particularly in subjects which require the extensive use of mathematical notation or other non-standard characters, the \LaTeX\ typesetting language is widely used to generate PDF lecture notes, worksheets, and slides. However, these documents do not currently fulfil accessibility requirements (see Section~\ref{sec:context:PDF}). While there are various approaches to producing accessible documents from \LaTeX\ source files, none of these are widely adopted across the University, or elsewhere. Barriers include technological expertise and means, workload, inconsistent quality of output, and lack of institutional and technical support.
+
+The PTAS project ``A systematic approach to enable production of accessible course materials'' aimed to close this gap by identifying and overcoming such barriers in a systematic manner. Working in collaboration with a diverse community of educators and students, we have developed a set of guidance documents, technical instructions, and \LaTeX\ templates to facilitate the creation of course materials in accessible, flexible output formats.  We have particularly focused on HTML output, which is not only supported by a wide variety of devices, but can also be displayed using user-defined preferences, such as fonts, text sizes, colours, and wrapping for different screen sizes; it is also compatible with many screen readers.
+
+
+\subsection{Why are PDFs not ``accessible''?}
+\label{sec:context:PDF}
+
+In our context, \textbf{accessibility} relates to course content being accessible (as in readable and usable) to everyone, in particular people with disabilities or health conditions. Written content can present accessibility barriers to different people. For example,
+\begin{itemize}
+    \item those with a visual impairments may use assistive technology (e.g. screen readers) to access course materials;
+    \item partially sighted or colourblind people, or those with difficulties related to processing text (for example people with dyslexia or ADHD), may need to customise fonts, font sizes, spacing, and colours to improve accessibility.
+\end{itemize}
+
+None of the above is practical to do with PDF files. In particular:
+\begin{itemize}
+    \item PDF does not allow fonts, sizes or colours to be changed easily;
+    \item \LaTeX{}-produced PDF documents are not ``tagged''\footnote{The accessibility checker \textit{Ally}, which is the tool embedded in Learn Ultra, determines the accessibility score of a PDF file largely depending on whether or not it is tagged.} because \LaTeX{} does not (yet) support this feature\footnote{There is ongoing work to improve this at the \LaTeX{} Project, but this is still in early stages; see the paper \href{https://www.latex-project.org/publications/2024-FMi-UFi-TUB-tb139mitt-deims24.pdf}{Enhancing \LaTeX{} to automatically produce
+tagged and accessible PDF} for a summary of progress as of March 2024.}. A tagged PDF provides metadata on the document structure, which makes it possible for assistive technologies to navigate between sections --- and therefore makes screen readers usable.
+    \item Crucially, screen readers cannot read mathematical expressions inside a PDF file, because the PDF file does not contain any semantic information about the mathematical expressions --- it only contains a graphical rendering of the expressions.
+\end{itemize}
+
+
+\subsection{A solution: HTML with MathML}
+\label{sec:context:HTML}
+
+HTML documents are accessible in some ways that PDF documents are not.
+\begin{itemize}
+    \item The user can easily change font size, font family, and colours\footnote{This can be done with custom style sheets (for instance via browser extensions such as \href{https://add0n.com/stylus.html}{Stylus}), or Javascript (for example, try the toolbar at the top of the HTML version of this document).}. It is also possible to print from HTML to paper while conserving your font settings -- so you can print in large font, for example (which, again, is not straightforward with a PDF).
+    \item The document structure and navigation relies on HTML tags, which are accessible by screen readers.
+    \item Providing alternative text (or alt-text) for figures is easier. This is different from figure captions --- it describes the key features of a figure under the assumption that the person reading the alt-text cannot see the image.
+    \item Mathematical expressions are displayed using MathML\footnote{\href{https://www.w3.org/Math/}{MathML homepage}}, which is compatible with a range of assistive technologies (e.g. screen readers and Braille displays)\footnote{\href{https://www.chhs.colostate.edu/accessibility/best-practices-how-tos/mathml/}{Brief explanation and demonstration of MathML, including a video showing use with a screen reader}.}.
+\end{itemize}
+
+MathML renders all mathematical expressions in a document, whether inline ($x = 1$) or in display mode:
+
+\begin{equation}
+    \label{eq:mathjax}
+    f(x) = \int_{0}^{\infty} \left( \frac{e^{-t^2}}{\sqrt{\pi}} \right) \left( \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{(2n+1)!!} \right) \, dt
+\end{equation}
+
+You may be familiar with MathJax\footnote{\url{https://www.mathjax.org/}}, used for instance on STACK. MathJax is a Javascript engine used to display MathML in the browser. \href{https://andrewlock.net/rendering-math-in-html-mathml-mathml-core-and-asciimath/}{This is a good primer} on what they both do. In particular, MathJax offers a contextual menu on right-click with further accessibility features, including the possibility to copy the \LaTeX{} source for an expression (try it with the expression above, in the HTML version of this document).
+
+It is possible to generate HTML with MathML \textit{automatically} from \verb|.tex| source files --- so we don't have to worry about doing any of this manually. A key part of the PTAS project was to review different workflows for doing so, in order to provide recommendations and appropriate support for robust, user-friendly production of accessible course materials.
+
+
+\subsection{Insights from staff interviews}
+\label{sec:interviews}
+
+During the Spring semester of 2023--24, we conducted interviews with teaching staff from the Schools of Mathematics, Physics and Astronomy, Engineering, and Philosophy, Psychology, and Language Sciences to better understand their current workflows in producing course materials. We specifically chose staff members who work extensively with \LaTeX{}.
+
+Several common themes emerged from these discussions, which helped inform our approach:
+
+\paragraph{Teaching staff have limited time.} Any proposed adjustments must be integrable into existing workflows with absolutely minimal increase in workload. Solutions should prioritize simplicity, efficiency, and robustness, without the need to extensively consult documentation or complex instructions. Technical support should be provided to resolve problems.
+
+\paragraph{Openness to adjustments in workflow.} While the staff we interviewed expressed willingness to adjust their workflows to enhance accessibility of their materials, this may well be biased by us interviewing staff who put themselves forward to discuss this in the first place. This underscores the importance of making all recommendations user-friendly and low-friction to ensure widespread adoption.
+
+ \paragraph{Challenges of shared \LaTeX\ documents.} Documents in \LaTeX\ authored by multiple contributors or handed down over time often exhibit inefficiencies such as redundant or inefficient use of packages. Additionally, they may contain large blocks of commented-out code from previous versions or authors, which can clutter the document and complicate maintenance. These remnants, while intended for reference or future use, often become outdated and may not serve future iterations of the document effectively. Such practices can hinder readability, increase file size, and make it challenging to navigate and update course materials efficiently.
+
+\paragraph{There are more similarities than differences.} While a multitude of resources are employed in creating course materials, the majority of \LaTeX\ documents typically share similar foundational structures. Variations typically arise from specialized packages tailored to specific subjects, use of different engines to compile PDFs, the number of authors involved, and other contextual factors. This implies that supporting solutions which accommodate different packages, custom macros, and figures/images will enable us to develop a solution applicable to a wide range of \LaTeX\ documents.
+
+
+\section{Flexibility is the key}
+\label{sec:context:flex}
+
+A driving principle we choose to adopt in this project is \textbf{flexibility}, both on the side of the users (usually students) and producers (usually lecturers) of course materials.
+
+\begin{itemize}
+    \item Writers of course materials should be able (and appropriately supported) to produce accessible versions with as little change to their preferred workflow as possible. In any automatic conversion process, technical issues and incompatibilities are inevitable --- but technical support, consultation, testing, and iterative refinement will drastically help to reduce this.
+    \item Users should be able (and appropriately supported) to customise the display of course materials to a format that is most accessible to them. There are certainly general guidelines we can follow to produce accessible documents --- but prescribing a specific format (e.g. prescribing a specific font family or colour palette) is not as good as giving people options.
+\end{itemize}
+
+Importantly: accessibility is about ensuring that \textbf{everyone} can engage fully. For instance, for many students, PDF course materials will always be their preferred option: they are useful for printing, annotating and note-taking on tablets, and can be easier to use offline. We are very much \textbf{not asking lecturers to get rid of their PDF notes} unless they want to --- the idea is to also provide alternative options.

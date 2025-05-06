@@ -55,6 +55,7 @@
 \fi
 
 \usepackage{pgfplots}  % this also loads TikZ
+\usepackage[all]{xy}
 
 %% Packages
 
@@ -191,16 +192,16 @@
 \surroundwithmdframed[style=UoESomProof]{proof}
 \surroundwithmdframed[style=UoESomExample]{example}
 
-    % General style
-    
+% General style
 
-    % PDF headers/footers
-    \pagestyle{fancy}
-    \fancyhf{}
-    \lhead{\coursename}
-    \rhead{\coursecode}
-    \cfoot{\thepage}
-    \setlength{\headheight}{20pt}
+
+% PDF headers/footers
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\coursename}
+\rhead{\coursecode}
+\cfoot{\thepage}
+\setlength{\headheight}{20pt}
 
 
 \fi
@@ -223,7 +224,7 @@
 \newtheorem{remark}[definition]{Remark}
 \newtheorem{exercise}[definition]{Exercise}
 
-% Make a copy of proof for solution
+% Make a copy of the proof environment for solutions
 \makeatletter
 \newcommand\solutionname{Solution}
 \newcommand\solutionend{}
