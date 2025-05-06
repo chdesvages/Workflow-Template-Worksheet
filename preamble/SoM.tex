@@ -120,8 +120,21 @@
 \iflatexml
 
 
+%\theoremstyle{remark}
+%\newtheorem*{solution}{Solution}
+
+\pgfplotsset{compat=1.16}
+\else
+% PDF-only settings
+% Official UoE brand colours
+\definecolor{UoESoMGrey}{HTML}{c6d1d6}
+\definecolor{UoESoMLightBlue}{HTML}{009baa}
+\definecolor{UoESoMDarkOrange}{HTML}{c66005}
+\definecolor{UoESoMDarkBlue}{HTML}{002654}
+
+\usepackage{mdframed}
+
 % === Hack to fix incorrect spacing before mdframed theorem in TeXLive 2024
-% === only works for pdflatex
 \usepackage{ifpdf}
 \newlength\thmboxoffset
 \ifpdftex
@@ -133,93 +146,41 @@
 \fi
 % ===
 
-%\theoremstyle{remark}
-%\newtheorem*{solution}{Solution}
-
-\pgfplotsset{compat=1.16}
-\else
-% Theorem styles (sequential numbering, indexed on chapter (if it exists) or section)
-% PDF-only settings
-% Official UoE brand colours
-\definecolor{UoESoMGrey}{HTML}{c6d1d6}
-\definecolor{UoESoMLightBlue}{HTML}{009baa}
-\definecolor{UoESoMDarkOrange}{HTML}{c66005}
-\definecolor{UoESoMDarkBlue}{HTML}{002654}
-
-\usepackage{mdframed}
-
-% Define styles for mdframed
-% Define styles for mdframed
-\mdfdefinestyle{UoESomStatement}{
-    linecolor=UoESoMDarkOrange,
-    backgroundcolor=UoESoMDarkOrange!3!white,
+\mdfsetup{
     leftline=true,
     rightline=true,
     topline=false,
     bottomline=false,
     linewidth=0.6ex,
-    innertopmargin=2.5ex,
-    innerbottommargin=1.5ex,
+    innertopmargin=\dimexpr\thmboxoffset+\parskip\relax,
+    innerbottommargin=0.8\parskip,
     innerrightmargin=1.5ex,
     innerleftmargin=1.5ex,
-    skipabove=\baselineskip,
-    skipbelow=\baselineskip,
+    skipabove=1.5\parskip,
+    skipbelow=0.2\parskip,
     leftmargin=-2.1ex,
-    rightmargin=-2.1ex,
+    rightmargin=-2.1ex
+}
+
+% Define styles for mdframed
+\mdfdefinestyle{UoESomStatement}{
+    linecolor=UoESoMDarkOrange,
+    backgroundcolor=UoESoMDarkOrange!3!white
 }
 
 \mdfdefinestyle{UoESomProof}{
     linecolor=UoESoMGrey,
-    backgroundcolor=UoESoMGrey!5!white,
-    leftline=true,
-    rightline=true,
-    topline=false,
-    bottomline=false,
-    linewidth=0.6ex,
-    innertopmargin=1.5ex,
-    innerbottommargin=1.5ex,
-    innerrightmargin=1.5ex,
-    innerleftmargin=1.5ex,
-    skipabove=\baselineskip,
-    skipbelow=\baselineskip,
-    leftmargin=-2.1ex,
-    rightmargin=-2.1ex,
+    backgroundcolor=UoESoMGrey!5!white
 }
 
 \mdfdefinestyle{UoESomDefinition}{
     linecolor=UoESoMLightBlue,
-    backgroundcolor=UoESoMLightBlue!3!white,
-    leftline=true,
-    rightline=true,
-    topline=false,
-    bottomline=false,
-    linewidth=0.6ex,
-    innertopmargin=2.5ex,
-    innerbottommargin=1.5ex,
-    innerrightmargin=1.5ex,
-    innerleftmargin=1.5ex,
-    skipabove=\baselineskip,
-    skipbelow=\baselineskip,
-    leftmargin=-2.1ex,
-    rightmargin=-2.1ex,
+    backgroundcolor=UoESoMLightBlue!3!white
 }
 
 \mdfdefinestyle{UoESomExample}{
     linecolor=UoESoMDarkBlue,
-    backgroundcolor=UoESoMDarkBlue!3!white,
-    leftline=true,
-    rightline=true,
-    topline=false,
-    bottomline=false,
-    linewidth=0.6ex,
-    innertopmargin=2.5ex,
-    innerbottommargin=1.5ex,
-    innerrightmargin=1.5ex,
-    innerleftmargin=1.5ex,
-    skipabove=\baselineskip,
-    leftmargin=-2.1ex,
-    rightmargin=-2.1ex,
-    %skipbelow=\baselineskip
+    backgroundcolor=UoESoMDarkBlue!3!white
 }
 
 
@@ -245,6 +206,7 @@
 
 \fi
 
+% Theorem styles (sequential numbering, indexed on chapter (if it exists) or section)
 \theoremstyle{definition}
 \ifcsname chapter\endcsname
 \usepackage{titlesec}
