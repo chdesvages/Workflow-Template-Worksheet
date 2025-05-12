@@ -14,7 +14,7 @@ jobs:
           scheme: full
           timeout-minutes: 6
           replace-bookml: true
-          version: latest
+          version: v0.18.0
 
       - name: Extract zip files
         run: |
