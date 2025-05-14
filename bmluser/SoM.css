@@ -1,13 +1,23 @@
+/* Fix horizontal scrollbar issue with some lists */
+.ltx_para {
+    overflow-x: visible;
+}
+
+/* Remove horizontal lines above and below displayed equation */
 .ltx_equation.ltx_eqn_div {
   border-top: none;
   border-bottom: none;
 }
 
-tr.nolines {
-  border-top: none !important;
-  border-bottom: none !important;
+/* Remove horizontal lines from multiline equations */
+.book .book-body .page-wrapper .page-inner section.normal table.ltx_equationgroup tr,
+.book .book-body .page-wrapper .page-inner section.normal table.ltx_equationgroup tr th,
+.book .book-body .page-wrapper .page-inner section.normal table.ltx_equationgroup tr td {
+  border-top-width: 0;
+  border-bottom-width: 0;
 }
 
+/* Style theorem environments */
 .ltx_theorem_theorem {
   padding: 5px;
   background-color: #FDFAF8;
@@ -15,12 +25,10 @@ tr.nolines {
   border-right: solid 4px #C66005;
   }
 
-
 .color-theme-2 .ltx_theorem_theorem {
   background-color: #020507 !important;
   }
   
-
 .ltx_theorem_proposition  {
   padding: 5px;
   background-color: #FDFAF8;
