@@ -1,59 +1,25 @@
-\documentclass[12pt,oneside]{book}
+\documentclass[12pt,oneside]{article} 
 
-\newcommand\coursename{Demo Course}
+\newcommand\coursename{Course Name - Worksheet x}
 \newcommand\coursecode{MATXXXXXXX}
 \newcommand\courseauthor{Author}
 \newcommand\courseyear{2024--25}
-\newcommand\coursedescription{A description of the course.}
 
 \input{preamble/SoM}
 \input{preamble/custom}
 
 \begin{document}
-% \frontmatter
-
-%\thanks{}
 
 \maketitle
-\tableofcontents
 
-%    Dedication.  If the dedication is longer than a line or two,
-%    remove the centering instructions and the line break.
-%\cleardoublepage
-%\thispagestyle{empty}
-%\vspace*{13.5pc}
-%\begin{center}
-%  Dedication text (use \\[2pt] for line break if necessary)
-%\end{center}
-%\cleardoublepage
+% Copyright information (for published pages)
+\iflatexml
+    \copyright The University of Edinburgh, 2025. Generated with \href{https://vlmantova.github.io/bookml/}{BookML}.
+\fi
 
-%    Change page number to 6 if a dedication is present.
-% \setcounter{page}{4}
+% Main content
+\input{week01_worksheet.tex}
 
-
-
-%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
-% \include{}
-
-\mainmatter
-% Include main chapters here.
-
-%\part{Second part}
-
-\appendix
-% Include appendix "chapters" here.
-
-
-
-\backmatter
-%    Bibliography styles amsplain or harvard are also acceptable.
-\bibliographystyle{amsalpha}
-\bibliography{biblio}
-%    See note above about multiple indexes.
-%\printindex
 
 \end{document}
 
-%-----------------------------------------------------------------------
-% End of main-book.tex
-%-----------------------------------------------------------------------
