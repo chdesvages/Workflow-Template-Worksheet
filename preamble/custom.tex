@@ -69,11 +69,12 @@
 
 % Exercise and solution styles (sequential numbering, indexed on worksheet)
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[section]
+\newcounter{week}
+\newtheorem{exercise}{Exercise}[week]
 
 \iflatexml  
     \newenvironment{solution} 
-    {\<details style="text-align: left; width: 100\%" open="">  
+    {\<details style="text-align: left; width: 100\%">  
     \<summary>  \textbf{Solution}  \</summary>  \\} 
     {\</details> } 
 \else 
