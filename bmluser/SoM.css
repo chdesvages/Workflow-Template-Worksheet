@@ -95,3 +95,16 @@
   background-color: #080706 !important;
   }
 
+
+.ltx_theorem_exercise { 
+  padding: 5px;
+  background-color:#F7F8F9;
+  border-left: solid 4px #002653;
+  border-right: solid 4px #002653;
+  }
+
+.color-theme-2 .ltx_theorem_exercise { 
+  background-color: #080706 !important;
+  }
+
+

@@ -53,7 +53,7 @@
     }
 
     \surroundwithmdframed[style=UoESomExercise]{exercise}
-    \surroundwithmdframed[style=UoESomProof]{proof}
+    \surroundwithmdframed[style=UoESomSolution]{solution}
 
 
     % PDF headers/footers
@@ -78,7 +78,8 @@
     \<summary>  \textbf{Solution}  \</summary>  \\} 
     {\</details> } 
 \else 
-    \usepackage{version}  
-    % \excludeversion{solution}  
-    \includeversion{solution}  
+    % Solutions not included in the PDF by default; choose here
+    \usepackage{version}
+    \excludeversion{solution}
+    % \includeversion{solution}
 \fi 
