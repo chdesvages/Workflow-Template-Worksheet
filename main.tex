@@ -4,13 +4,18 @@
 \newcommand\coursecode{MATXXXXXXX}
 \newcommand\courseauthor{Author}
 \newcommand\courseyear{2024--25}
-\newcommand\coursedescription{Worksheet X}
+\newcommand\weeknumber{1}
+\newcommand\coursedescription{Week \weeknumber worksheet}
 
 \input{preamble/SoM}
 \input{preamble/custom}
 
 \begin{document}
 
+
+% Worksheet title (numbering follows week number defined above)
+\setcounter{section}{\weeknumber}
+\section{\coursename --- \coursedescription}
 
 % Main content goes here
 \input{week01_worksheet.tex}
